@@ -1,7 +1,7 @@
 resource "kubernetes_ingress" "ingress" {
   metadata {
-    name = "ingress"
-    namespace = kubernetes_namespace.namespace-terraform.metadata.0.name
+    name = "${var.prefix}-ingress"
+    namespace = var.namespace
 
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
@@ -15,7 +15,7 @@ resource "kubernetes_ingress" "ingress" {
           path = "/${var.prefix}-terraform"
           
           backend {
-            service_name = kubernetes_service.service.metadata.0.name
+            service_name = var.service_name
             service_port = var.container_port
           }
         }
