@@ -53,5 +53,11 @@ prod-terraform-destroy:
 	terraform workspace select prod
 	@make terraform-destroy
 
+logs-pod:
+	kubectl logs -f $(shell kubectl get pods -n dev-$(NAMESPACE) -o jsonpath='{.items[0].metadata.name}') -n dev-$(NAMESPACE)
+
+bash-pod:
+	kubectl exec -it $(shell kubectl get pods -n dev-$(NAMESPACE) -o jsonpath='{.items[0].metadata.name}') -n dev-$(NAMESPACE) -- bash
+
 # terraform workspace new prod
 # terraform workspace new dev
