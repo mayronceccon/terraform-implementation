@@ -18,6 +18,8 @@ minikube-stop:
 	minikube stop
 
 terraform-init:
+	terraform workspace new dev
+	terraform workspace new prod
 	terraform init
 
 terraform-destroy:
@@ -58,6 +60,3 @@ logs-pod:
 
 bash-pod:
 	kubectl exec -it $(shell kubectl get pods -n dev-$(NAMESPACE) -o jsonpath='{.items[0].metadata.name}') -n dev-$(NAMESPACE) -- bash
-
-# terraform workspace new prod
-# terraform workspace new dev
